@@ -144,8 +144,11 @@ function getCountDaysOnPeriod(dateStart, dateEnd) {
  * '2024-02-02', { start: '2024-02-02', end: '2024-03-02' } => true
  * '2024-02-10', { start: '2024-02-02', end: '2024-03-02' } => true
  */
-function isDateInPeriod(/* date, period */) {
-  throw new Error('Not implemented');
+function isDateInPeriod(date, period) {
+  const dateObj = new Date(date);
+  const startDateObj = new Date(period.start);
+  const endDateObj = new Date(period.end);
+  return dateObj >= startDateObj && dateObj <= endDateObj;
 }
 
 /**
@@ -159,8 +162,21 @@ function isDateInPeriod(/* date, period */) {
  * '1999-01-05T02:20:00.000Z' => '1/5/1999, 2:20:00 AM'
  * '2010-12-15T22:59:00.000Z' => '12/15/2010, 10:59:00 PM'
  */
-function formatDate(/* date */) {
-  throw new Error('Not implemented');
+function formatDate(date) {
+  const dateObj = new Date(date);
+  const year = dateObj.getUTCFullYear();
+  const month = dateObj.getUTCMonth() + 1;
+  const day = dateObj.getUTCDate();
+  const hours =
+    dateObj.getUTCHours() > 12
+      ? dateObj.getUTCHours() - 12
+      : dateObj.getUTCHours();
+  const minutes = String(dateObj.getUTCMinutes()).padStart(2, '0');
+  const seconds = String(dateObj.getUTCSeconds()).padStart(2, '0');
+  const half =
+    dateObj.getUTCHours() + dateObj.getUTCMinutes() / 60 > 12 ? 'PM' : 'AM';
+
+  return `${month}/${day}/${year}, ${hours}:${minutes}:${seconds} ${half}`;
 }
 
 /**
