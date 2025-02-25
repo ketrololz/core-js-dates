@@ -51,8 +51,18 @@ function getTime(date) {
  * '03 Dec 1995 00:12:00 UTC' => 'Sunday'
  * '2024-01-30T00:00:00.000Z' => 'Tuesday'
  */
-function getDayName(/* date */) {
-  throw new Error('Not implemented');
+function getDayName(date) {
+  const dateObj = new Date(date);
+  const days = [
+    'Sunday',
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday',
+  ];
+  return days[dateObj.getDay()];
 }
 
 /**
@@ -66,8 +76,20 @@ function getDayName(/* date */) {
  * Date('2024-02-13T00:00:00Z') => Date('2024-02-16T00:00:00Z')
  * Date('2024-02-16T00:00:00Z') => Date('2024-02-23T00:00:00Z')
  */
-function getNextFriday(/* date */) {
-  throw new Error('Not implemented');
+function getNextFriday(date) {
+  const currDay = date.getDay();
+  let daysToFriday;
+  if (currDay === 5) {
+    daysToFriday = 7;
+  }
+  if (currDay === 6) {
+    daysToFriday = 6;
+  }
+  if (currDay < 5) {
+    daysToFriday = 5 - currDay;
+  }
+  const nextFriday = new Date(date.setDate(date.getDate() + daysToFriday));
+  return nextFriday;
 }
 
 /**
