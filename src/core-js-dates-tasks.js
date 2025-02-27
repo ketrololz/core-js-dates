@@ -224,13 +224,12 @@ function getCountWeekendsInMonth(month, year) {
  * Date(2024, 0, 31) => 5
  * Date(2024, 1, 23) => 8
  */
-function getWeekNumberByDate() {
-  // const firstYearDayMs = new Date(date.getFullYear(), 0, 1);
-  // const currDayMs = date.getTime();
-  // const week = Math.ceil((currDayMs - firstYearDayMs) / 1000 / 3600 / 24 / 7);
+function getWeekNumberByDate(date) {
+  const firstYearDayMs = new Date(date.getFullYear(), 0, 1);
+  const currDayMs = date.getTime();
+  const week = Math.ceil((currDayMs - firstYearDayMs) / 1000 / 3600 / 24 / 7);
 
-  // return date.getDay() === firstYearDayMs.getDay() ? week + 1 : week;
-  throw new Error();
+  return date.getDay() === firstYearDayMs.getDay() ? week + 1 : week;
 }
 
 /**
@@ -295,27 +294,25 @@ function getQuarter(date) {
  * { start: '01-01-2024', end: '15-01-2024' }, 1, 3 => ['01-01-2024', '05-01-2024', '09-01-2024', '13-01-2024']
  * { start: '01-01-2024', end: '10-01-2024' }, 1, 1 => ['01-01-2024', '03-01-2024', '05-01-2024', '07-01-2024', '09-01-2024']
  */
-function getWorkSchedule(period, countWorkDays, countOffDays) {
-  const startArr = period.start.split('-');
-  const endArr = period.end.split('-');
-  const startDate = new Date(startArr[2], startArr[1] - 1, startArr[0]);
-  const endDate = new Date(endArr[2], endArr[1] - 1, endArr[0]);
-  const days = [];
-  const msInOneDay = 3600 * 24 * 1000;
-  let counter = countWorkDays;
-
-  while (startDate.getTime() <= endDate.getTime()) {
-    days.push(startDate.toLocaleString().split(',')[0].split('.').join('-'));
-    counter -= 1;
-    if (counter === 0) {
-      startDate.setTime(startDate.getTime() + (countOffDays + 1) * msInOneDay);
-      counter = countWorkDays;
-    } else {
-      startDate.setTime(startDate.getTime() + msInOneDay);
-    }
-  }
-
-  return days;
+function getWorkSchedule() {
+  // const startArr = period.start.split('-');
+  // const endArr = period.end.split('-');
+  // const startDate = new Date(startArr[2], startArr[1] - 1, startArr[0]);
+  // const endDate = new Date(endArr[2], endArr[1] - 1, endArr[0]);
+  // const days = [];
+  // const msInOneDay = 3600 * 24 * 1000;
+  // let counter = countWorkDays;
+  // while (startDate.getTime() <= endDate.getTime()) {
+  //   days.push(startDate.toLocaleString().split(',')[0].split('.').join('-'));
+  //   counter -= 1;
+  //   if (counter === 0) {
+  //     startDate.setTime(startDate.getTime() + (countOffDays + 1) * msInOneDay);
+  //     counter = countWorkDays;
+  //   } else {
+  //     startDate.setTime(startDate.getTime() + msInOneDay);
+  //   }
+  // }
+  // return days;
 }
 
 /**
