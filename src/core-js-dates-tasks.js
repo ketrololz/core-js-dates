@@ -62,7 +62,7 @@ function getDayName(date) {
     'Friday',
     'Saturday',
   ];
-  return days[dateObj.getDay()];
+  return days[dateObj.getUTCDay()];
 }
 
 /**
@@ -77,7 +77,7 @@ function getDayName(date) {
  * Date('2024-02-16T00:00:00Z') => Date('2024-02-23T00:00:00Z')
  */
 function getNextFriday(date) {
-  const currDay = date.getDay();
+  const currDay = date.getUTCDay();
   let daysToFriday;
   if (currDay === 5) {
     daysToFriday = 7;
@@ -195,7 +195,7 @@ function getCountWeekendsInMonth(month, year) {
   const dateObj = new Date(year, month, 0);
   const days = dateObj.getDate();
   const daysArr = [];
-  let currDay = new Date(Date.UTC(year, month - 1, 1)).getDay();
+  let currDay = new Date(Date.UTC(year, month - 1, 1)).getUTCDay();
 
   for (let i = 0; i < days; i += 1) {
     if (currDay === 0 || currDay === 6) {
@@ -225,13 +225,11 @@ function getCountWeekendsInMonth(month, year) {
  * Date(2024, 1, 23) => 8
  */
 function getWeekNumberByDate(date) {
-  const utcDate = new Date(
-    Date.UTC(date.getFullYear(), date.getMonth(), date.getDate())
-  );
-  const firstYearDayMs = new Date(date.getFullYear(), 0, 1).getTime();
-  const currDayMs = utcDate.getTime();
+  const firstYearDayMs = new Date(date.getFullYear(), 0, 1);
+  const currDayMs = date.getTime();
+  const week = Math.ceil((currDayMs - firstYearDayMs) / 1000 / 3600 / 24 / 7);
 
-  return Math.ceil((currDayMs - firstYearDayMs) / 1000 / 3600 / 24 / 7);
+  return date.getDay() === firstYearDayMs.getDay() ? week + 1 : week;
 }
 
 /**
@@ -299,10 +297,8 @@ function getQuarter(date) {
 function getWorkSchedule(period, countWorkDays, countOffDays) {
   const startArr = period.start.split('-');
   const endArr = period.end.split('-');
-  const startDate = new Date(
-    Date.UTC(startArr[2], startArr[1] - 1, startArr[0])
-  );
-  const endDate = new Date(Date.UTC(endArr[2], endArr[1] - 1, endArr[0]));
+  const startDate = new Date(startArr[2], startArr[1] - 1, startArr[0]);
+  const endDate = new Date(endArr[2], endArr[1] - 1, endArr[0]);
   const days = [];
   const msInOneDay = 3600 * 24 * 1000;
   let counter = countWorkDays;
