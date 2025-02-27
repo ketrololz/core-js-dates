@@ -1,6 +1,7 @@
 {
   "editor.codeActionsOnSave": {
-    
+
     "source.fixAll.eslint": true
-  }
+  },
+  "terminal.integrated.scrollback": 1000
 }
