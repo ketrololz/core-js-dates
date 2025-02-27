@@ -250,16 +250,15 @@ function getNextFridayThe13th(date) {
     date.setDate(13);
   }
 
-  while (true) {
-    if (date.getDay() === 5) {
-      return date;
-    }
+  while (date.getDay() !== 5) {
     if (date.getMonth() === 12) {
       date.setFullYear(date.getFullYear() + 1);
     } else {
       date.setMonth(date.getMonth() + 1);
     }
   }
+
+  return date;
 }
 
 /**
