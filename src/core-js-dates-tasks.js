@@ -195,7 +195,7 @@ function getCountWeekendsInMonth(month, year) {
   const dateObj = new Date(year, month, 0);
   const days = dateObj.getDate();
   const daysArr = [];
-  let currDay = new Date(Date.UTC(year, month - 1, 1)).getUTCDay();
+  let currDay = new Date(year, month - 1, 1).getDay();
 
   for (let i = 0; i < days; i += 1) {
     if (currDay === 0 || currDay === 6) {
