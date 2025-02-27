@@ -331,8 +331,8 @@ function getWorkSchedule(period, countWorkDays, countOffDays) {
  */
 function isLeapYear(date) {
   return (
-    (date.getUTCFullYear() % 4 === 0 && date.getUTCFullYear() % 100 !== 0) ||
-    date.getUTCFullYear() % 400 === 0
+    (date.getFullYear() % 4 === 0 && date.getFullYear() % 100 !== 0) ||
+    date.getFullYear() % 400 === 0
   );
 }
 
